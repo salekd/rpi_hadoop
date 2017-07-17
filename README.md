@@ -26,7 +26,13 @@ I am using the following three hostnames: `hadoop-master`, `hadoop-slave1` and `
 sudo raspi-config
 ```
 
-Specify the following informatino in `/etc/wpa_supplicant/wpa_supplicant.conf`
+Download vim:
+
+```
+sudo apt-get install vim
+```
+
+Specify the following information in `/etc/wpa_supplicant/wpa_supplicant.conf`
 
 ```
 network={
@@ -174,7 +180,9 @@ su hduser
 ### Install Hadoop
 
 I followed the instructions here:
-https://web.archive.org/web/20170221231927/http://www.becausewecangeek.com/building-a-raspberry-pi-hadoop-cluster-part-1/
+   * http://www.widriksson.com/raspberry-pi-hadoop-cluster/
+   * https://blogs.sap.com/2015/04/25/a-hadoop-data-lab-project-on-raspberry-pi-part-14/
+   * https://web.archive.org/web/20170221231927/http://www.becausewecangeek.com/building-a-raspberry-pi-hadoop-cluster-part-1/
 
 Download the latest Hadoop binary from http://hadoop.apache.org/releases.html
 and test the tarball checksum using SHA-256:
