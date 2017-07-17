@@ -2,11 +2,10 @@
 
 
 
-### SD cards
+### SD cards with Raspbian image
 
 Download the Raspbian image from
 https://www.raspberrypi.org/downloads/raspbian/
-
 and follow the instructions on how to install an image on an SD card here:
 https://www.raspberrypi.org/documentation/installation/installing-images/mac.md
 
@@ -143,7 +142,7 @@ ff02::2		ip6-allrouters
 192.168.50.12	hadoop-slave2
 ```
 
-You can check your lacal network settings on all three Raspberry Pi's and ping the internal hosts:
+You can check your local network settings on all three Raspberry Pi's and ping the internal hosts:
 
 ```
 ip -4 addr show dev eth0 | grep inet
