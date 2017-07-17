@@ -63,10 +63,23 @@ cat /etc/resolv.conf
 
 
 
+### Install Java
+
+Install Java and check the version:
+
+```
+sudo apt-get install oracle-java8-jdk
+java -version
+```
+
+
+
 ### Ethernet switch
 
 I followed the instructions on how to inter-connect the Raspberry Pi's using an ethernet switch here:
 http://makezine.com/projects/build-a-compact-4-node-raspberry-pi-cluster/
+
+The following configuration applies to the master node only.
 
 Edit `/etc/network/interfaces` as follows:
 
@@ -198,4 +211,18 @@ Extract the tarball:
 sudo tar -xvzf hadoop-2.8.0.tar.gz -C /opt/  
 cd /opt
 sudo chown -R hduser:hadoop hadoop-2.8.0/  
+```
+
+Add the following lines at the end of `~/.bashrc`
+
+```
+export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
+export HADOOP_INSTALL=/opt/hadoop-2.8.0
+export PATH=$PATH:$HADOOP_INSTALL/bin
+```
+
+and try running:
+
+```
+hadoop version
 ```
