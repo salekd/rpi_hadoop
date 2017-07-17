@@ -245,3 +245,56 @@ and try running:
 ```
 hadoop version
 ```
+
+
+
+### Configure Hadoop
+
+Edit `/opt/hadoop-2.8.0/etc/hadoop/core-site.xml` on the master node:
+
+```
+<configuration>
+  <property>
+    <name>hadoop.tmp.dir</name>
+    <value>/hdfs/tmp</value>
+  </property>
+  <property>
+    <name>fs.default.name</name>
+    <value>hdfs://hadoop-master:54310</value>
+  </property>
+</configuration>
+```
+
+Edit `/opt/hadoop-2.8.0/etc/hadoop/mapred-site.xml` on the master node:
+
+```
+<configuration>
+  <property>
+    <name>mapred.job.tracker</name>
+    <value>hadoop-cluster:54311</value>
+  </property>
+</configuration>
+```
+
+Edit `/opt/hadoop-2.8.0/etc/hadoop/hdfs-site.xml` on the master node:
+
+```
+<configuration>
+  <property>
+    <name>dfs.replication</name>
+    <value>1</value>
+  </property>
+</configuration>
+```
+
+
+
+### Create HDFS file system
+
+Create HDFS file system on the master node (name node):
+```
+sudo mkdir -p /hdfs/tmp
+sudo chown hduser:hadoop /hdfs/tmp
+sudo chmod 750 /hdfs/tmp
+hadoop namenode -format
+```
