@@ -250,6 +250,16 @@ hadoop version
 
 ### Configure Hadoop
 
+Configure Hadoop environment variables in `/opt/hadoop-2.8.0/etc/hadoop/hadoop-env.sh` on all nodes:
+
+```
+# The java implementation to use. Required.
+export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
+
+# The maximum amount of heap to use, in MB. Default is 1000.
+export HADOOP_HEAPSIZE=250
+```
+
 Edit `/opt/hadoop-2.8.0/etc/hadoop/core-site.xml` on the master node:
 
 ```
@@ -287,6 +297,13 @@ Edit `/opt/hadoop-2.8.0/etc/hadoop/hdfs-site.xml` on the master node:
 </configuration>
 ```
 
+Edit `/opt/hadoop-2.8.0/etc/hadoop/slaves`
+
+```
+hadoop-slave1
+hadoop-slave2
+```
+
 
 
 ### Create HDFS file system
@@ -297,4 +314,21 @@ sudo mkdir -p /hdfs/tmp
 sudo chown hduser:hadoop /hdfs/tmp
 sudo chmod 750 /hdfs/tmp
 hadoop namenode -format
+```
+
+
+
+### Start services
+
+Start services:
+
+```
+/opt/hadoop-2.8.0/sbin/start-dfs.sh
+/opt/hadoop-2.8.0/sbin/start-yarn.sh
+```
+
+and check that everything is running:
+
+```
+jps
 ```
