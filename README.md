@@ -190,6 +190,25 @@ su hduser
 
 
 
+### SSH configuration
+
+On the master node, generate SSH keys:
+
+```
+mkdir ~/.ssh
+ssh-keygen -t rsa -P ""
+cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys
+```
+
+Share the public key from the master node with all slave nodes:
+
+```
+ssh-copy-id -i ~/.ssh/id_rsa.pub hduser@192.168.50.11
+ssh-copy-id -i ~/.ssh/id_rsa.pub hduser@192.168.50.12
+```
+
+
+
 ### Install Hadoop
 
 I followed the instructions here:
