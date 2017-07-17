@@ -150,3 +150,44 @@ ip route
 
 ping 192.168.50.11
 ```
+
+
+
+### Create a new group and user
+
+Create a new group and user:
+
+```
+sudo addgroup hadoop  
+sudo adduser --ingroup hadoop hduser  
+sudo adduser hduser sudo
+```
+
+and change to this new user:
+
+```
+su hduser
+```
+
+
+
+### Install Hadoop
+
+I followed the instructions here:
+https://web.archive.org/web/20170221231927/http://www.becausewecangeek.com/building-a-raspberry-pi-hadoop-cluster-part-1/
+
+Download the latest Hadoop binary from http://hadoop.apache.org/releases.html
+and test the tarball checksum using SHA-256:
+
+```
+wget http://apache.hippo.nl/hadoop/common/hadoop-2.8.0/hadoop-2.8.0.tar.gz
+shasum -a 256 hadoop-2.8.0.tar.gz
+```
+
+Extract the tarball:
+
+```
+sudo tar -xvzf hadoop-2.8.0.tar.gz -C /opt/  
+cd /opt
+sudo chown -R hduser:hadoop hadoop-2.8.0/  
+```
