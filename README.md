@@ -418,6 +418,13 @@ The available space should correspond to both data nodes in total:
 hadoop fs -df -h
 ```
 
+Browse the name node web interface:
+
+```
+sudo apt-get install lynx
+lynx http://192.168.50.1:8088/
+```
+
 
 
 ### Run a test
