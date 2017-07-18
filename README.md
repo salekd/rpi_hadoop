@@ -154,8 +154,6 @@ Specify the IP addresses of all three Raspberry Pi's in `/etc/hosts` as follows:
 ff02::1		ip6-allnodes
 ff02::2		ip6-allrouters
 
-127.0.1.1	hadoop-master
-
 192.168.50.1	hadoop-master
 192.168.50.11	hadoop-slave-1
 192.168.50.12	hadoop-slave-2
