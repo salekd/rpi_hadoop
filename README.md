@@ -260,7 +260,7 @@ export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
 export HADOOP_HEAPSIZE=250
 ```
 
-Edit `/opt/hadoop-2.8.0/etc/hadoop/core-site.xml` on the master node:
+Edit `/opt/hadoop-2.8.0/etc/hadoop/core-site.xml` on all nodes (change `fs.defaut.name` accordingly):
 
 ```
 <configuration>
@@ -343,7 +343,7 @@ hadoop-slave2
 
 ### Create HDFS file system
 
-Create HDFS file system on the master node (name node):
+Create HDFS file system on all nodes:
 ```
 sudo mkdir -p /hdfs/tmp
 sudo chown hduser:hadoop /hdfs/tmp
@@ -355,7 +355,7 @@ hdfs namenode -format
 
 ### Start services
 
-Start services:
+Start services on the master node:
 
 ```
 /opt/hadoop-2.8.0/sbin/start-dfs.sh
