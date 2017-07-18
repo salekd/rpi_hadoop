@@ -260,7 +260,7 @@ export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
 export HADOOP_HEAPSIZE=250
 ```
 
-Edit `/opt/hadoop-2.8.0/etc/hadoop/core-site.xml` on all nodes (change `fs.defaut.name` accordingly):
+Edit `/opt/hadoop-2.8.0/etc/hadoop/core-site.xml` on all nodes:
 
 ```
 <configuration>
@@ -281,7 +281,7 @@ Edit `/opt/hadoop-2.8.0/etc/hadoop/mapred-site.xml` on the master node:
 <configuration>
   <property>
     <name>mapred.job.tracker</name>
-    <value>hadoop-cluster:54311</value>
+    <value>hadoop-master:54311</value>
   </property>
 </configuration>
 ```
