@@ -511,6 +511,30 @@ Open the Spark UI:
 lynx http://192.168.50.1:8080/
 ```
 
+From the `/opt/spark-2.2.0-bin-hadoop2.7` directory, test that Spark shell works:
+
+```
+bin/spark-shell
+```
+
+and type:
+
+```
+sc.textFile("README.md").count
+```
+
+Try also the pySpark shell:
+
+```
+bin/pyspark
+```
+
+and type:
+
+```
+sc.textFile("README.md").count()
+```
+
 
 
 ### Links
