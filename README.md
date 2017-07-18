@@ -457,7 +457,9 @@ hdfs dfs -cat output/*
 
 
 
-### Install Spark
+### Install and configure Spark
+
+I followed the instructions from https://sites.google.com/a/complexsys.info/scattershot/home/configuring-apache-spark-on-raspbery-pi-2-3-clusters
 
 Download Spark from https://spark.apache.org/downloads.html
 
@@ -471,13 +473,23 @@ Create a configuration file `/opt/spark-2.2.0-bin-hadoop2.7/conf/spark-env.sh` w
 
 ```
 SPARK_MASTER_IP=192.168.50.1
+SPARK_EXECUTOR_MEMORY=512m
+SPARK_DRIVER_MEMORY=512m
 SPARK_WORKER_MEMORY=512m
+SPARK_DAEMON_MEMORY=512m
 ```
 
 and make it executable.
 
 ```
 chmod 755 /opt/spark-2.2.0-bin-hadoop2.7/conf/spark-env.sh
+```
+
+Specify the slaves in `/opt/spark-2.2.0-bin-hadoop2.7/conf/slaves`:
+
+```
+hadoop-slave1
+hadoop-slave2
 ```
 
 
