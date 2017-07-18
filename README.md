@@ -364,4 +364,5 @@ and check that everything is running:
 
 ```
 jps
+hdfs dfsadmin -report
 ```
