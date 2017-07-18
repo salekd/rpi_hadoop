@@ -460,6 +460,20 @@ sudo tar -xvzf spark-2.2.0-bin-hadoop2.7.tgz -C /opt/
 sudo chown -R hduser:hadoop /opt/spark-2.2.0-bin-hadoop2.7
 ```
 
+Create a configuration file `/opt/spark-2.2.0-bin-hadoop2.7/conf/spark-env.sh` with the following settings:
+
+```
+SPARK_MASTER_IP=192.168.50.1
+SPARK_WORKER_MEMORY=512m
+```
+
+and make it executable.
+
+```
+chmod 755 /opt/spark-2.2.0-bin-hadoop2.7/conf/spark-env.sh
+```
+
+
 
 ### Links
 
