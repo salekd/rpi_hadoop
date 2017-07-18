@@ -313,7 +313,7 @@ Create HDFS file system on the master node (name node):
 sudo mkdir -p /hdfs/tmp
 sudo chown hduser:hadoop /hdfs/tmp
 sudo chmod 750 /hdfs/tmp
-hadoop namenode -format
+hdfs namenode -format
 ```
 
 
