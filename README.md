@@ -258,8 +258,6 @@ export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
 
 # The maximum amount of heap to use, in MB. Default is 1000.
 export HADOOP_HEAPSIZE=250
-
-export HADOOP_DATANODE_OPTS="-Dhadoop.security.logger=ERROR,RFAS $HADOOP_DATANODE_OPTS -client"
 ```
 
 Edit `/opt/hadoop-2.8.0/etc/hadoop/core-site.xml` on the master node:
