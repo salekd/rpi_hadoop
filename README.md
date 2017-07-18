@@ -297,6 +297,39 @@ Edit `/opt/hadoop-2.8.0/etc/hadoop/hdfs-site.xml` on the master node:
 </configuration>
 ```
 
+Edit `/opt/hadoop-2.8.0/etc/hadoop/yarn-site.xml` on the master node:
+
+````
+  <property>
+    <name>yarn.nodemanager.aux-services</name>
+    <value>mapreduce_shuffle</value>
+  </property>
+  <property>
+    <name>yarn.nodemanager.resource.cpu-vcores</name>
+    <value>4</value>
+  </property>
+  <property>
+    <name>yarn.nodemanager.resource.memory-mb</name>
+    <value>1024</value>
+  </property>
+  <property>
+    <name>yarn.scheduler.minimum-allocation-mb</name>
+    <value>128</value>
+  </property>
+  <property>
+    <name>yarn.scheduler.maximum-allocation-mb</name>
+    <value>1024</value>
+  </property>
+  <property>
+    <name>yarn.scheduler.minimum-allocation-vcores</name>
+    <value>1</value>
+  </property>
+  <property>
+    <name>yarn.scheduler.maximum-allocation-vcores</name>
+    <value>4</value>
+  </property>
+````
+
 Edit `/opt/hadoop-2.8.0/etc/hadoop/slaves`
 
 ```
