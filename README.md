@@ -300,6 +300,7 @@ Edit `/opt/hadoop-2.8.0/etc/hadoop/hdfs-site.xml` on the master node:
 Edit `/opt/hadoop-2.8.0/etc/hadoop/yarn-site.xml` on the master node:
 
 ````
+<configuration>
   <property>
     <name>yarn.nodemanager.aux-services</name>
     <value>mapreduce_shuffle</value>
@@ -328,6 +329,7 @@ Edit `/opt/hadoop-2.8.0/etc/hadoop/yarn-site.xml` on the master node:
     <name>yarn.scheduler.maximum-allocation-vcores</name>
     <value>4</value>
   </property>
+</configuration>
 ````
 
 Edit `/opt/hadoop-2.8.0/etc/hadoop/slaves`
