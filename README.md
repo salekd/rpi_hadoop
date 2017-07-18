@@ -371,6 +371,9 @@ hdfs dfsadmin -report
 
 ### Run a test
 
+The following example is taken from
+https://hadoop.apache.org/docs/r2.8.0/hadoop-project-dist/hadoop-common/SingleCluster.html
+
 ```
 hdfs dfs -mkdir /user
 hdfs dfs -mkdir /user/hduser
