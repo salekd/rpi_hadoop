@@ -366,3 +366,15 @@ and check that everything is running:
 jps
 hdfs dfsadmin -report
 ```
+
+
+
+### Run a test
+
+```
+hdfs dfs -mkdir /user
+hdfs dfs -mkdir /user/hduser
+hdfs dfs -put /opt/hadoop-2.8.0/etc/hadoop input
+hadoop jar /opt/hadoop-2.8.0/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.8.0.jar grep input output 'dfs[a-z.]+'
+hdfs dfs -cat output/*
+```
