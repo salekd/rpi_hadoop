@@ -134,11 +134,11 @@ group {
          hardware ethernet b8:27:eb:10:5c:b5;
          fixed-address 192.168.50.1;
       }
-      host hadoop-slave1 {
+      host hadoop-slave-1 {
          hardware ethernet b8:27:eb:45:1e:78;
          fixed-address 192.168.50.11;
       }
-      host hadoop-slave2 {
+      host hadoop-slave-2 {
          hardware ethernet b8:27:eb:d4:54:ab;
          fixed-address 192.168.50.12;
       }
@@ -157,8 +157,8 @@ ff02::2		ip6-allrouters
 127.0.1.1	hadoop-master
 
 192.168.50.1	hadoop-master
-192.168.50.11	hadoop-slave1
-192.168.50.12	hadoop-slave2
+192.168.50.11	hadoop-slave-1
+192.168.50.12	hadoop-slave-2
 ```
 
 You can check your local network settings on all three Raspberry Pi's and ping the internal hosts:
