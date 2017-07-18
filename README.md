@@ -209,8 +209,8 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub hduser@192.168.50.12
 
 ### Install Hadoop
 
-I followed the instructions from https://developer.ibm.com/recipes/tutorials/building-a-hadoop-cluster-with-raspberry-pi/
-   
+I followed the instructions from http://www.widriksson.com/raspberry-pi-hadoop-cluster
+
 Download the latest Hadoop binary from http://hadoop.apache.org/releases.html
 and test the tarball checksum using SHA-256:
 
@@ -244,6 +244,8 @@ hadoop version
 
 
 ### Configure Hadoop
+
+I followed the instructions from https://developer.ibm.com/recipes/tutorials/building-a-hadoop-cluster-with-raspberry-pi/ and https://dqydj.com/raspberry-pi-hadoop-cluster-apache-spark-yarn/
 
 The following files should be modified on the master node. The configuration will be shared with the other nodes afterwards using rsync.
 
@@ -452,6 +454,7 @@ hdfs dfs -cat output/*
 
 Other useful links:
    * https://hadoop.apache.org/docs/r2.8.0/hadoop-project-dist/hadoop-common/ClusterSetup.html
-   * http://www.widriksson.com/raspberry-pi-hadoop-cluster/
    * https://blogs.sap.com/2015/04/25/a-hadoop-data-lab-project-on-raspberry-pi-part-14/
    * https://web.archive.org/web/20170221231927/http://www.becausewecangeek.com/building-a-raspberry-pi-hadoop-cluster-part-1/
+   * https://medium.com/@jasonicarter/how-to-hadoop-at-home-with-raspberry-pi-part-1-3b71f1b8ac4e
+   * http://www.nigelpond.com/uploads/How-to-build-a-7-node-Raspberry-Pi-Hadoop-Cluster.pdf
