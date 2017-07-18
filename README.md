@@ -454,6 +454,7 @@ hdfs dfs -cat output/*
 
 Other useful links:
    * https://hadoop.apache.org/docs/r2.8.0/hadoop-project-dist/hadoop-common/ClusterSetup.html
+   * http://www.cs.brandeis.edu//~cs147a/lab/hadoop-troubleshooting/
    * https://blogs.sap.com/2015/04/25/a-hadoop-data-lab-project-on-raspberry-pi-part-14/
    * https://web.archive.org/web/20170221231927/http://www.becausewecangeek.com/building-a-raspberry-pi-hadoop-cluster-part-1/
    * https://medium.com/@jasonicarter/how-to-hadoop-at-home-with-raspberry-pi-part-1-3b71f1b8ac4e
