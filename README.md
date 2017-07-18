@@ -209,11 +209,8 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub hduser@192.168.50.12
 
 ### Install Hadoop
 
-I followed the instructions here:
-   * http://www.widriksson.com/raspberry-pi-hadoop-cluster/
-   * https://blogs.sap.com/2015/04/25/a-hadoop-data-lab-project-on-raspberry-pi-part-14/
-   * https://web.archive.org/web/20170221231927/http://www.becausewecangeek.com/building-a-raspberry-pi-hadoop-cluster-part-1/
-
+I followed the instructions from https://developer.ibm.com/recipes/tutorials/building-a-hadoop-cluster-with-raspberry-pi/
+   
 Download the latest Hadoop binary from http://hadoop.apache.org/releases.html
 and test the tarball checksum using SHA-256:
 
@@ -248,7 +245,9 @@ hadoop version
 
 ### Configure Hadoop
 
-Configure Hadoop environment variables in `/opt/hadoop-2.8.0/etc/hadoop/hadoop-env.sh` on all nodes:
+The following files should be modified on the master node. The configuration will be shared with the other nodes afterwards using rsync.
+
+Configure Hadoop environment variables in `/opt/hadoop-2.8.0/etc/hadoop/hadoop-env.sh`:
 
 ```
 # The java implementation to use. Required.
@@ -258,7 +257,7 @@ export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
 export HADOOP_HEAPSIZE=250
 ```
 
-Edit `/opt/hadoop-2.8.0/etc/hadoop/core-site.xml` on all nodes:
+Edit `/opt/hadoop-2.8.0/etc/hadoop/core-site.xml`:
 
 ```
 <configuration>
@@ -273,7 +272,7 @@ Edit `/opt/hadoop-2.8.0/etc/hadoop/core-site.xml` on all nodes:
 </configuration>
 ```
 
-Edit `/opt/hadoop-2.8.0/etc/hadoop/mapred-site.xml` on the master node:
+Edit `/opt/hadoop-2.8.0/etc/hadoop/mapred-site.xml`:
 
 ```
 <configuration>
@@ -281,21 +280,39 @@ Edit `/opt/hadoop-2.8.0/etc/hadoop/mapred-site.xml` on the master node:
     <name>mapred.job.tracker</name>
     <value>hadoop-master:54311</value>
   </property>
-</configuration>
-```
-
-Edit `/opt/hadoop-2.8.0/etc/hadoop/hdfs-site.xml` on the master node:
-
-```
-<configuration>
   <property>
-    <name>dfs.replication</name>
-    <value>1</value>
+    <name>mapred.framework.name</name>
+    <value>yarn</value>
   </property>
 </configuration>
 ```
 
-Edit `/opt/hadoop-2.8.0/etc/hadoop/yarn-site.xml` on the master node:
+Edit `/opt/hadoop-2.8.0/etc/hadoop/hdfs-site.xml`:
+
+```
+<configuration>
+  <property>
+    <name>dfs.datanode.data.dir</name>
+    <value>/hdfs/tmp/datanode</value>
+    <final>true</final>
+  </property>
+  <property>
+    <name>dfs.namenode.name.dir</name>
+    <value>/hdfs/tmp/namenode</value>
+    <final>true</final>
+  </property>
+  <property>
+    <name>dfs.namenode.http-address</name>
+    <value>hadoop-master:50070</value>
+  </property>
+  <property>
+    <name>dfs.replication</name>
+    <value>3</value>
+  </property>
+</configuration>
+```
+
+Edit `/opt/hadoop-2.8.0/etc/hadoop/yarn-site.xml`:
 
 ````
 <configuration>
@@ -327,14 +344,40 @@ Edit `/opt/hadoop-2.8.0/etc/hadoop/yarn-site.xml` on the master node:
     <name>yarn.scheduler.maximum-allocation-vcores</name>
     <value>4</value>
   </property>
+  
+  <property>
+    <name>yarn.resourcemanager.resource-tracker.address</name>
+    <value>hadoop-master:8025</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.scheduler.address</name>
+    <value>hadoop-master:8035</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.address</name>
+    <value>hadoop-master:8050</value>
+  </property>
 </configuration>
 ````
 
-Edit `/opt/hadoop-2.8.0/etc/hadoop/slaves`
+Edit `/opt/hadoop-2.8.0/etc/hadoop/slaves`:
 
 ```
 hadoop-slave1
 hadoop-slave2
+```
+
+Share the configuration with the other nodes. First install rsync on all nodes.
+
+```
+sudo apt-get -y install rsync
+```
+
+Synchronize the hadoop directory from the master node:
+
+```
+rsync -avxP /opt/hadoop-2.8.0/ hduser@192.168.50.11:/opt/hadoop-2.8.0/
+rsync -avxP /opt/hadoop-2.8.0/ hduser@192.168.50.12:/opt/hadoop-2.8.0/
 ```
 
 
@@ -367,9 +410,30 @@ jps
 hdfs dfsadmin -report
 ```
 
+The available space should correspond to both data nodes in total:
+
+```
+hadoop fs -df -h
+```
+
 
 
 ### Run a test
+
+Create a test directory in HDFS and upload a file there:
+```
+hadoop fs -mkdir hdfs://master:54310/testdir/
+hadoop fs -df -h
+hadoop fs -mkdir hdfs://hadoop-master:54310/testdir/
+hadoop fs -copyFromLocal /opt/hadoop-2.8.0/LICENSE.txt hdfs://hadoop-master:54310/testdir/license.txt
+hadoop fs -ls hdfs://hadoop-master:54310/testdir/
+```
+
+Check the status of the test directory:
+
+```
+hdfs fsck /testdir/ -files -blocks -racks
+```
 
 The following example is taken from
 https://hadoop.apache.org/docs/r2.8.0/hadoop-project-dist/hadoop-common/SingleCluster.html
@@ -381,3 +445,13 @@ hdfs dfs -put /opt/hadoop-2.8.0/etc/hadoop input
 hadoop jar /opt/hadoop-2.8.0/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.8.0.jar grep input output 'dfs[a-z.]+'
 hdfs dfs -cat output/*
 ```
+
+
+
+### Links
+
+Other useful links:
+   * https://hadoop.apache.org/docs/r2.8.0/hadoop-project-dist/hadoop-common/ClusterSetup.html
+   * http://www.widriksson.com/raspberry-pi-hadoop-cluster/
+   * https://blogs.sap.com/2015/04/25/a-hadoop-data-lab-project-on-raspberry-pi-part-14/
+   * https://web.archive.org/web/20170221231927/http://www.becausewecangeek.com/building-a-raspberry-pi-hadoop-cluster-part-1/
