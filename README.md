@@ -492,6 +492,25 @@ hadoop-slave1
 hadoop-slave2
 ```
 
+From the slaves, use scp to copy the Spark directory from the master node and change the ownership:
+
+```
+sudo scp -r hduser@192.168.50.1:/opt/spark-2.2.0-bin-hadoop2.7 /opt/.
+sudo chown -R hduser:hadoop /opt/spark-2.2.0-bin-hadoop2.7
+```
+
+Start Spark:
+
+```
+/opt/spark-2.2.0-bin-hadoop2.7/sbin/start-all.sh
+```
+
+Open the Spark UI:
+
+```
+lynx http://192.168.50.1:8080/
+```
+
 
 
 ### Links
