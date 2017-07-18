@@ -511,7 +511,19 @@ Open the Spark UI:
 lynx http://192.168.50.1:8080/
 ```
 
-From the `/opt/spark-2.2.0-bin-hadoop2.7` directory, test that Spark shell works:
+
+
+### Test the Spark installation
+
+I followed the examples from https://darrenjw2.wordpress.com/2015/04/17/installing-apache-spark-on-a-raspberry-pi-2/
+
+From the `/opt/spark-2.2.0-bin-hadoop2.7` directory, try the pi approximation example:
+
+```
+bin/run-example SparkPi 10
+```
+
+Test that Spark shell works:
 
 ```
 bin/spark-shell
